@@ -12,4 +12,4 @@ class CategoryDataService {
     }
 }
 
-export default CategoryDataService()
+export default CategoryDataService

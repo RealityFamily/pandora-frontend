@@ -10,6 +10,8 @@ import {
     UserOutlined,
 } from '@ant-design/icons';
 import CategoryDataService from '../../service/CategoryDataService.js'
+import AuthenticationService from "../../service/AuthenticationService";
+import {Link} from "react-router-dom";
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -62,6 +64,7 @@ export default class AdminPage extends React.Component {
 
     render() {
         const { collapsed } = this.state;
+        const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
         return (
             <Layout style={{ minHeight: '100vh' }}>
                 <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
@@ -115,6 +118,11 @@ export default class AdminPage extends React.Component {
                             Bill is a cat.
                         </div>
 */}
+
+                        <ul className="navbar-nav navbar-collapse justify-content-end">
+                            {!isUserLoggedIn && <li><Link className="nav-link" to="/login">Login</Link></li>}
+                            {isUserLoggedIn && <li><Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link></li>}
+                        </ul>
 
                         {
                             <div className="container">

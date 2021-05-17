@@ -3,6 +3,7 @@ import './App.css';
 import LoginComponent from "./components/LoginComponent/LoginComponent";
 import AdminPage from "./components/AdminPage/AdminPage";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
+import LogoutComponent from "./components/LogoutComponent/LogoutComponent";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
                 <Route path="/" exact component={LoginComponent}></Route>
                 <Route path="/login" exact component={LoginComponent}></Route>
                 <AuthenticatedRoute path="/admin" exact component={AdminPage}></AuthenticatedRoute>
+                <AuthenticatedRoute path="/logout" exact component={LogoutComponent} />
             </Switch>
         </BrowserRouter>
     </div>
