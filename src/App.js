@@ -7,13 +7,13 @@ import LogoutComponent from "./components/LogoutComponent/LogoutComponent";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       {/*<AdminPage></AdminPage>*/}
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact component={LoginComponent}></Route>
                 <Route path="/login" exact component={LoginComponent}></Route>
-                <AuthenticatedRoute path="/admin" exact component={AdminPage}></AuthenticatedRoute>
+                <AuthenticatedRoute path="/admin" component={AdminPage}></AuthenticatedRoute>
                 <AuthenticatedRoute path="/logout" exact component={LogoutComponent} />
             </Switch>
         </BrowserRouter>

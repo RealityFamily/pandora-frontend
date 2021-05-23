@@ -60,7 +60,7 @@ class LoginComponent extends Component {
 
     render() {
         return (
-            <div>
+            <div className="App">
                 <h1>Login</h1>
                 <div className="container">
                     {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}

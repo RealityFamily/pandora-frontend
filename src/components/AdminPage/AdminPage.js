@@ -7,26 +7,13 @@ import {
     AppstoreOutlined,
     TagsOutlined,
 } from '@ant-design/icons';
-import CategoryDataService from '../../service/api/CategoryDataService.js'
 import AuthenticationService from "../../service/AuthenticationService";
-import {Link} from "react-router-dom";
-
+import {Link, Route} from "react-router-dom";
+import CategoryPage from "../CategoryPage/CategoryPage";
+import {useHistory} from "react-router-dom";
 
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
-
-const columns = [
-    {
-        title: 'ID',
-        dataIndex: 'id',
-        key: 'id',
-    },
-    {
-        title: 'Название',
-        dataIndex: 'category',
-        key: 'category',
-    },
-];
 
 export default class AdminPage extends React.Component {
     state = {
@@ -38,9 +25,22 @@ export default class AdminPage extends React.Component {
         this.setState({collapsed});
     };
 
-    // componentDidMount() {
-    //     this.refreshCategorys();
-    // }
+    onSideMenuClicked = (e) => {
+        switch (e.key){
+            case "items":
+                this.props.history.push("/admin/items");
+                break;
+            case "users":
+                this.props.history.push("/admin/users");
+                break;
+            case "category's":
+                this.props.history.push("/admin/category/list");
+                break;
+            default: console.error("Not mapped menu item action");
+
+        }
+    }
+
 
     render() {
         const {collapsed} = this.state;
@@ -64,9 +64,9 @@ export default class AdminPage extends React.Component {
                     <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
 
                         <div className="logo"/>
-                        <Menu theme="dark" defaultSelectedKeys={['1']} mode="vertical">
+                        <Menu theme="dark" defaultSelectedKeys={['1']} mode="vertical" onClick={this.onSideMenuClicked}>
 
-                            <Menu.Item key="items" icon={<AppstoreOutlined />}>
+                            <Menu.Item key="items" icon={<AppstoreOutlined/>} >
                                 Items
                             </Menu.Item>
 
@@ -75,7 +75,7 @@ export default class AdminPage extends React.Component {
                             </Menu.Item>
 
 
-                            <Menu.Item key="categorys" icon={<TagsOutlined />}>
+                            <Menu.Item key="category's" icon={<TagsOutlined/>}>
                                 Category's
                             </Menu.Item>
                         </Menu>
@@ -83,9 +83,11 @@ export default class AdminPage extends React.Component {
 
 
                     <Layout className="site-layout">
-                        <Content style={{margin: '0 16px'}}>
+                        <Content
+                            //style={{margin: '0 16px'}}
+                        >
 
-                            <></>
+                            <Route path="/admin/category/list" exact component={CategoryPage}></Route>
 
 
                         </Content>
