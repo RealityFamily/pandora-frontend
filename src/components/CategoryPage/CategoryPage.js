@@ -44,9 +44,9 @@ const columns = [
 const CategoryPage = () => (
     <div className={styles.CategoryPage}>
         <Layout>
-            <Header theme={"light"} style={{backgroundColor: "rgba(240,242, 245, 0.85)"}}>
+            <Header theme={"light"} style={{backgroundColor: "rgba(240,242, 245, 0.85)", display: "flex", justifyContent: "flex-end"}}>
                 <Button type="primary" shape="round" icon={<PlusOutlined/>} size={"Large"}
-                        style={{display: "flex", marginLeft: "auto", marginTop: "5px"}}>
+                        style={{marginTop: "5px"}}>
                     Добавить
                 </Button>
             </Header>

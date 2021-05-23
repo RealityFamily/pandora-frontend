@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './CategoryTable.module.css';
 import {Button, Col, Divider, Layout, Row} from "antd";
 import Title from "antd/es/typography/Title";
+import CategoryElement from "../CategoryElement/CategoryElement";
 
 class CategoryTable extends React.Component {
         render() {
@@ -33,6 +34,9 @@ class CategoryTable extends React.Component {
                             //style={{background: 'rgba(0, 33, 64)'}}
                         >
 
+                            <CategoryElement title="Ебаные диваны"></CategoryElement>
+                            <CategoryElement title="Ну очень ебаные диваны"></CategoryElement>
+                            <CategoryElement title="Самые трахучие злоебейшие адские очень ебаные диваны"></CategoryElement>
                             <Button style={{margin: "4px"}}> Лол кек чебурек</Button>
                             <Button style={{margin: "4px"}}> Лол кек чебурек</Button>
                             <Button style={{margin: "4px"}}> Лол кек чебурек</Button>
