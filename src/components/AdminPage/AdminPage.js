@@ -1,16 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import {Layout, Menu, Breadcrumb, Table, PageHeader} from 'antd';
-import {
-    UserOutlined,
-    AppstoreOutlined,
-    TagsOutlined,
-} from '@ant-design/icons';
+import {Layout, Menu, PageHeader} from 'antd';
+import {AppstoreOutlined, TagsOutlined, UserOutlined,} from '@ant-design/icons';
 import AuthenticationService from "../../service/AuthenticationService";
 import {Link, Route} from "react-router-dom";
 import CategoryPage from "../CategoryPage/CategoryPage";
-import {useHistory} from "react-router-dom";
+import UsersList from "../UsersList/UsersList";
+import ItemsList from "../ItemsList/ItemsList";
 
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
@@ -87,7 +83,9 @@ export default class AdminPage extends React.Component {
                             //style={{margin: '0 16px'}}
                         >
 
-                            <Route path="/admin/category/list" exact component={CategoryPage}></Route>
+                            <Route path="/admin/category/list" exact component={CategoryPage}/>
+                            <Route path="/admin/users" exact component={UsersList}/>
+                            <Route path="/admin/items" exact component={ItemsList}/>
 
 
                         </Content>

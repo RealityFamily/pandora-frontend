@@ -1,10 +1,6 @@
 import React from 'react';
 import styles from './CategoryElement.module.css';
 import {Button, Card, Col, Collapse, Popover, Row} from "antd";
-import Title from "antd/es/typography/Title";
-import Text from "antd/es/typography/Text";
-import {render} from "react-dom";
-
 
 
 class CategoryElement extends React.Component {
@@ -14,44 +10,38 @@ class CategoryElement extends React.Component {
         const {Panel} = Collapse;
 
         return (
-        <div className={styles.CategoryElement}>
+            <div className={styles.CategoryElement}>
 
-            <Card size="small"
-                actions={
-                [
+                <Card size="small">
 
+                    <Row justify="end" wrap={false}>
+                        <Col flex="auto" style={{textAlign: "center", padding: "10px"}}>
+                            <Collapse ghost={true} expandIconPosition="right">
+                                <Panel header={this.props.title} key="1">
+                                    <p>Тестовое описание категории</p>
+                                    <Popover content={
 
-                    <Collapse >
-                        <Panel header="Подробнее" key="1">
-                            <p>Тестовое описание категории</p>
-                            <Button>Редактировать</Button>
-                            <Button danger>Удалить</Button>
-                        </Panel>
-                    </Collapse>
-                ]
-            }
-            >
+                                        <>
+                                            <input type={"text"} placeholder={"Название"}/>
+                                            <input type={"text"} placeholder={"Описание"}/>
+                                            <button>Сохранить</button>
+                                        </>
 
-                <Row justify="end" wrap={false}>
-                    <Col flex="auto" style={{ textAlign: "center", padding: "10px"}}>
-                        <Text strong>{this.props.title}</Text>
-                    </Col>
-{/*                    <Col flex="100px">
-                        <Popover content={
-                            <>
-                                <p>Тестовое описание категории</p>
-                                <Button>Редактировать</Button>
-                                <Button danger>Удалить</Button>
-                            </>
-                        } title="Title">
-                            <Button type="primary">Подробнее</Button>
-                        </Popover>
-                    </Col>*/}
-                </Row>
+                                    } title="Редактировать данные">
+                                        <Button type="primary">Редактировать</Button>
+                                    </Popover>
+                                    <Button danger>Удалить</Button>
+                                </Panel>
+                            </Collapse>
+                        </Col>
+                        <Col flex="100px" style={{display: "flex", alignItems: "center"}}>
+                            <Button primary>Выбрать</Button>
+                        </Col>
+                    </Row>
 
 
-            </Card>
-        </div>
+                </Card>
+            </div>
         );
     }
 }

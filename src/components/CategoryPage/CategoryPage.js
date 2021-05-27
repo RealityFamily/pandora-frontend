@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './CategoryPage.module.css';
 import {Content, Header} from "antd/es/layout/layout";
-import {Button, Col, Layout, Row, Table} from "antd";
+import {Button, Layout} from "antd";
 import {PlusOutlined} from '@ant-design/icons';
-import Sider from "antd/es/layout/Sider";
 import CategoryTable from "../CategoryTable/CategoryTable";
 
 const dataSource = [
