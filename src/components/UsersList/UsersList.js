@@ -67,7 +67,7 @@ class UsersList extends React.Component {
                 <Header theme={"light"} style={{
                     backgroundColor: "rgba(240,242, 245, 0.85)",
                     display: "flex",
-                    justifyContent: "flex-end"
+                    justifyContent: "space-between"
                 }}>
                     <Input.Search size="large" placeholder="поиск" enterButton
                                   style={{marginRight: "25%", marginTop: "5px", marginLeft: "20px"}}/>

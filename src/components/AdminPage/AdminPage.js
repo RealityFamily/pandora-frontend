@@ -9,7 +9,7 @@ import UsersList from "../UsersList/UsersList";
 import ItemsList from "../ItemsList/ItemsList";
 
 const {Header, Content, Footer, Sider} = Layout;
-const {SubMenu} = Menu;
+//const {SubMenu} = Menu;
 
 export default class AdminPage extends React.Component {
     state = {
@@ -20,6 +20,11 @@ export default class AdminPage extends React.Component {
         console.log(collapsed);
         this.setState({collapsed});
     };
+
+    componentDidMount() {
+        this.props.history.replace("/admin/items") // navigate by default to the first tab in menu
+
+    }
 
     onSideMenuClicked = (e) => {
         switch (e.key){
@@ -60,7 +65,7 @@ export default class AdminPage extends React.Component {
                     <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
 
                         <div className="logo"/>
-                        <Menu theme="dark" defaultSelectedKeys={['1']} mode="vertical" onClick={this.onSideMenuClicked}>
+                        <Menu theme="dark" defaultSelectedKeys={['items']} mode="vertical" onClick={this.onSideMenuClicked}>
 
                             <Menu.Item key="items" icon={<AppstoreOutlined/>} >
                                 Items
