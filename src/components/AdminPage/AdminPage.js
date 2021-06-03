@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import {Layout, Menu, PageHeader} from 'antd';
 import {AppstoreOutlined, TagsOutlined, UserOutlined,} from '@ant-design/icons';
-import AuthenticationService from "../../service/AuthenticationService";
+import AuthenticationService, {USER_TOKEN_SESSION_ATTRIBUTE_TOKEN} from "../../service/AuthenticationService";
 import {Link, Route} from "react-router-dom";
 import CategoryPage from "../CategoryPage/CategoryPage";
 import UsersList from "../UsersList/UsersList";
@@ -23,7 +23,6 @@ export default class AdminPage extends React.Component {
 
     componentDidMount() {
         this.props.history.replace("/admin/items") // navigate by default to the first tab in menu
-
     }
 
     onSideMenuClicked = (e) => {

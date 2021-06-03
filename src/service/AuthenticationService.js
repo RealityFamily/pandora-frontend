@@ -3,9 +3,9 @@ import axios from 'axios'
 const API_URL = 'http://localhost:8082'
 
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
+export  const  USER_TOKEN_SESSION_ATTRIBUTE_TOKEN = "authenticatedToken";
 
 class AuthenticationService {
-
 
 
     executeJwtAuthenticationService(username, password) {
@@ -23,11 +23,13 @@ class AuthenticationService {
     }
 
     createJWTToken(token) {
+        sessionStorage.setItem(USER_TOKEN_SESSION_ATTRIBUTE_TOKEN,'Bearer ' + token);
         return 'Bearer ' + token
     }
 
     logout() {
         sessionStorage.removeItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
+        sessionStorage.removeItem(USER_TOKEN_SESSION_ATTRIBUTE_TOKEN);
     }
 
     isUserLoggedIn() {
