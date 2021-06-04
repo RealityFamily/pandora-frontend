@@ -5,6 +5,7 @@ import {PlusOutlined} from "@ant-design/icons";
 import {Header} from "antd/es/layout/layout";
 import ItemCard from "../ItemCard/ItemCard";
 import CategoryDataService from "../../service/api/CategoryDataService";
+import SubCategoryDataService from "../../service/api/SubCategoryDataService";
 
 const {Option} = Select;
 
@@ -21,22 +22,51 @@ class ItemsList extends React.Component {
 
     state = {
         categorys: [],
-        selectedCategory: null,
+        selectedCategory: "Категория не выбрана",
         subcategorys: [],
         selectedSubcategory: null
     }
 
 
     componentDidMount() {
-        CategoryDataService.retrieveAllCourses().then((data => {
-            console.log(data.data);
-            this.setState({categorys: data.data
-                , selectedCategory: data.data[0]
+        CategoryDataService.retrieveAllCourses()
+            .then((response => {
+                console.log(response.data);
+                this.setState({
+                    categorys: response.data,
+                    selectedCategory: response.data[0]
+                });
+            }))
+            .catch( () => {
+                console.log("Can't retrieve category list information");
+                this.setState({
+                    selectedCategory: "Категория не выбрана"
+                });
             })
-        }))
+    }
+
+
+    handleCategoryChange = (e) => {
+        const categorysCopy = [...this.state.categorys]
+        const categorySelectedAll = categorysCopy.filter( (category) => {
+            if(category.id === e)
+                return category;
+        });
+        let categorySelected = categorySelectedAll[0];
+        this.setState({selectedCategory: categorySelected});
+        this.getSubcats(categorySelected);
+    }
+
+    getSubcats(categorySelected) {
+        SubCategoryDataService.retrieveAllSubategorysByCategoryId(categorySelected.id)
+            .then((response) => {
+                console.log(response.data);
+                this.setState({subcategorys: response.data})
+            });
     }
 
     render() {
+        console.log(this.state);
         return <div className={styles.ItemsList}>
 
             <Layout>
@@ -46,26 +76,35 @@ class ItemsList extends React.Component {
                     justifyContent: "space-between"
                 }}>
                     <div style={{marginTop: "5px", marginLeft: "20px"}}>
-                        <Select defaultValue="Категория не выбрана" style={{width: 120}}>
+                        <Select
+                            defaultValue="Категория не выбрана"
+                            style={{width: 120}}
+                            onChange={this.handleCategoryChange}
+                            defaultActiveFirstOption={true}
+                            value={this.state.selectedCategory.category}
+                        >
 
                             {this.state.categorys.map((category) => {
                                 return <Option key={category.id}
-                                               value={category.category}
-                                               /*onChange={this.setState({selectedCategory: {...category}})}*/>
+                                               value={category.id}>
                                     {category.category}
                                 </Option>
                             })}
 
                         </Select>
                         <Select defaultValue="Категория не выбрана" style={{width: 120}}>
-                            <Option value="lol">лол</Option>
-                            <Option value="kek">кек</Option>
-                            <Option value="cheburek">чебурек</Option>
+                            {this.state.subcategorys.map((subcat) => {
+                                return <Option key={subcat.id}
+                                               value={subcat.id}>
+                                    {subcat.title}
+                                </Option>
+                            })}
+
                         </Select>
                         <Select defaultValue="Категория не выбрана" style={{width: 120}}>
-                            <Option value="lol">лол</Option>
-                            <Option value="kek">кек</Option>
-                            <Option value="cheburek">чебурек</Option>
+                            <Option value="lol2">лол</Option>
+                            <Option value="kek2">кек</Option>
+                            <Option value="cheburek2">чебурек</Option>
                         </Select>
 
                     </div>
@@ -98,7 +137,7 @@ class ItemsList extends React.Component {
                                 description={item.description}
                                 imageUrl={item.imageURL}
                                 authorNickname={item.authorNickname}
-                            ></ItemCard>
+                            />
                         </List.Item>
                     )}
                 />
@@ -106,6 +145,7 @@ class ItemsList extends React.Component {
             </Layout>
         </div>
     }
+
 }
 
 
