@@ -2,11 +2,11 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import {Layout, Menu, PageHeader} from 'antd';
 import {AppstoreOutlined, TagsOutlined, UserOutlined,} from '@ant-design/icons';
-import AuthenticationService, {USER_TOKEN_SESSION_ATTRIBUTE_TOKEN} from "../../service/AuthenticationService";
 import {Link, Route} from "react-router-dom";
 import CategoryPage from "../CategoryPage/CategoryPage";
 import UsersList from "../UsersList/UsersList";
 import ItemsList from "../ItemsList/ItemsList";
+import AuthenticationService from "../../service/AuthenticationService";
 
 const {Header, Content, Footer, Sider} = Layout;
 //const {SubMenu} = Menu;
@@ -14,6 +14,7 @@ const {Header, Content, Footer, Sider} = Layout;
 export default class AdminPage extends React.Component {
     state = {
         collapsed: false,
+        selectedKeys: ["items"],
     };
 
     onCollapse = collapsed => {
@@ -21,12 +22,17 @@ export default class AdminPage extends React.Component {
         this.setState({collapsed});
     };
 
+
     componentDidMount() {
         this.props.history.replace("/admin/items") // navigate by default to the first tab in menu
+        window.onpopstate = ()=> { // when popping state map it to the left menu
+            this.routeToMenuMap();
+        }
     }
 
-    onSideMenuClicked = (e) => {
-        switch (e.key){
+
+    onSideMenuClicked = (e) => { // when click on left panel route to a new page
+        switch (e.key) {
             case "items":
                 this.props.history.push("/admin/items");
                 break;
@@ -36,15 +42,39 @@ export default class AdminPage extends React.Component {
             case "category's":
                 this.props.history.push("/admin/category/list");
                 break;
-            default: console.error("Not mapped menu item action");
-
+            default:
+                console.error("Not mapped menu item action");
         }
+    }
+
+    routeToMenuMap = () => { // route will affect the left panel
+        switch(this.props.history.location.pathname){
+            case "/admin/items":
+                this.setState( {selectedKeys: ["items"]});
+                break;
+            case "/admin/users":
+                this.setState( {selectedKeys: ["users"]});
+                break;
+            case "/admin/category/list":
+                this.setState( {selectedKeys: ["category's"]});
+                break;
+
+            default:
+                console.log("Not mapped to menu page")
+        }
+    }
+
+
+
+    onMenuSelect = () => { // when select left panel key navigate selector to right place
+        this.routeToMenuMap();
     }
 
 
     render() {
         const {collapsed} = this.state;
         const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
+
         return (
 
             <div>
@@ -64,9 +94,11 @@ export default class AdminPage extends React.Component {
                     <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
 
                         <div className="logo"/>
-                        <Menu theme="dark" defaultSelectedKeys={['items']} mode="vertical" onClick={this.onSideMenuClicked}>
+                        <Menu theme="dark" defaultSelectedKeys={['items']} mode="vertical"
+                              onClick={this.onSideMenuClicked} onSelect={this.onMenuSelect}
+                        selectedKeys={this.state.selectedKeys}>
 
-                            <Menu.Item key="items" icon={<AppstoreOutlined/>} >
+                            <Menu.Item key="items" icon={<AppstoreOutlined/>}>
                                 Items
                             </Menu.Item>
 
