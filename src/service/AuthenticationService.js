@@ -48,7 +48,7 @@ class AuthenticationService {
         axios.interceptors.request.use(
             (config) => {
                 if (this.isUserLoggedIn()) {
-                    config.headers.authorization = token
+                    config.headers.Authorization = token
                 }
                 return config
             }

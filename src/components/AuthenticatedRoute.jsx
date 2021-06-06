@@ -18,7 +18,7 @@ class AuthenticatedRoute extends Component {
         axios.interceptors.request.use(
             (config) => {
                 if (this.isUserLoggedIn()) {
-                    config.headers.authorization = sessionStorage.getItem(USER_TOKEN_SESSION_ATTRIBUTE_TOKEN);
+                    config.headers.Authorization = sessionStorage.getItem(USER_TOKEN_SESSION_ATTRIBUTE_TOKEN);
                 }
                 return config
             }
