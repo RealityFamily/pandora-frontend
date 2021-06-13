@@ -4,9 +4,9 @@ import {Button, Divider, Layout, List, Select} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 import {Header} from "antd/es/layout/layout";
 import ItemCard from "../ItemCard/ItemCard";
-import CategoryDataService from "../../service/api/CategoryDataService";
-import SubCategoryDataService from "../../service/api/SubCategoryDataService";
-import ItemDataService from "../../service/api/ItemDataService";
+import CategoryDataService from "../../../service/api/CategoryDataService";
+import SubCategoryDataService from "../../../service/api/SubCategoryDataService";
+import ItemDataService from "../../../service/api/ItemDataService";
 
 const {Option} = Select;
 
@@ -122,7 +122,6 @@ class ItemsList extends React.Component {
         if (subcatSelected) {
             await this.getItemsBySubcat(subcatSelected.id);
         }
-        // the get all items and tags
     }
 
     render() {
@@ -171,66 +170,54 @@ class ItemsList extends React.Component {
 
                             </div>
                             <Button type="primary" shape="round" icon={<PlusOutlined/>} size={"Large"}
+                                    onClick={e => {this.props.history.push("/admin/items/addNew")}}
                                     style={{marginTop: "5px"}}>
                                 Добавить
                             </Button>
                         </Header>
-                        <List
-                            pagination={{
-                                onChange: page => {
-                                    console.log(page);
-                                },
-                                pageSize: 20
-                            }}
-                            grid={{
-                                gutter: 16,
-                                xs: 1,
-                                sm: 2,
-                                md: 4,
-                                lg: 4,
-                                xl: 6,
-                                xxl: 6
-                            }}
-                            dataSource={data}
-                            renderItem={item => (
-                                <List.Item>
 
-{/*                                    {this.state.itemsInSubtag.map((tag) => {
 
-                                        return <div key={tag.id}>
-                                            <Divider>{tag.title}</Divider>
-
-                                            {tag.itemCardShortDTOS.map((item) => {
-
-                                                return <ItemCard
-                                                    key = {item.id}
-                                                    name={item.id}
-                                                    description={item.description}
-                                                    imageUrl={item.imageURL}
-                                                    authorNickname={item.authorNickname}
-                                                />
-
-                                            })}
-
+                        {this.state.itemsInSubtag.map(tag => {
+                                return <>
+                                    <Divider>{tag.title}</Divider>
+                                    <List
+                                    pagination={{
+                                        onChange: page => {
+                                            console.log(page);
+                                        },
+                                        pageSize: 5,
+                                        showTitle: true
+                                    }}
+                                    grid={{
+                                        gutter: 16,
+                                        xs: 1,
+                                        sm: 2,
+                                        md: 4,
+                                        lg: 4,
+                                        xl: 6,
+                                        xxl: 6
+                                    }}
+                                    dataSource={tag.itemCardShortDTOS}
+                                    renderItem={ item =>
+                                        <List.Item key={item.id}>
                                             <ItemCard
-                                                name={item.name}
-                                                description={item.description}
-                                                imageUrl={item.imageURL}
-                                                authorNickname={item.authorNickname}
+                                                name= {item.id}
+                                                description="testDescriprion"
+                                                imageUrl={"https://manufaktura-yuyta-sochi.ru/wp-content/uploads/dionis-ugol-1.jpg"}
+                                                authorNickname={"Some Author"}
+                                                modelAccessStrategy={item.modelAccessStrategy}
                                             />
-                                        </div>
-                                    })}*/}
 
-                                    <Divider>Еще один типо тег</Divider>
-                                    <ItemCard
-                                        name={item.name}
-                                        description={item.description}
-                                        imageUrl={item.imageURL}
-                                        authorNickname={item.authorNickname}
-                                    />
-                                </List.Item>
-                            )}
-                        />
+                                        </List.Item>
+                                    }
+                                    >
+
+                                    </List>
+                                </>
+                            }
+                        )}
+
+
 
                     </Layout>
                 )

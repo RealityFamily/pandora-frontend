@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Redirect, Route} from 'react-router-dom'
-import AuthenticationService, {
+import {
     USER_NAME_SESSION_ATTRIBUTE_NAME,
     USER_TOKEN_SESSION_ATTRIBUTE_TOKEN
 } from '../service/AuthenticationService';

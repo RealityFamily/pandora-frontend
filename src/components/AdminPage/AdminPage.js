@@ -5,8 +5,9 @@ import {AppstoreOutlined, TagsOutlined, UserOutlined,} from '@ant-design/icons';
 import {Link, Route} from "react-router-dom";
 import CategoryPage from "../CategoryPage/CategoryPage";
 import UsersList from "../UsersList/UsersList";
-import ItemsList from "../ItemsList/ItemsList";
+import ItemsList from "../Items/ItemsList/ItemsList";
 import AuthenticationService from "../../service/AuthenticationService";
+import AddItemNew from "../Items/AddItemNew/AddItemNew";
 
 const {Header, Content, Footer, Sider} = Layout;
 //const {SubMenu} = Menu;
@@ -122,6 +123,7 @@ export default class AdminPage extends React.Component {
                             <Route path="/admin/category/list" exact component={CategoryPage}/>
                             <Route path="/admin/users" exact component={UsersList}/>
                             <Route path="/admin/items" exact component={ItemsList}/>
+                            <Route path="/admin/items/addNew" exact component={AddItemNew}></Route>
 
 
                         </Content>
