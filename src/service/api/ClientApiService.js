@@ -1,4 +1,4 @@
-const SERVER_BASE_URL = "http://localhost:8082"
+import SERVER_BASE_URL from "./ServerAdressApiService";
 
 const CLIENT_API_URL = `${SERVER_BASE_URL}/api/v1/client`;
 

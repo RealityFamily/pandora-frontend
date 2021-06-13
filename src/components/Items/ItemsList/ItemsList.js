@@ -37,7 +37,7 @@ class ItemsList extends React.Component {
 
 
     refreshAndBootstrapData() {
-        CategoryDataService.retrieveAllCourses()
+        CategoryDataService.retrieveAllCategorys()
             .then((response => {
                 console.log(response.data);
                 this.setState({
