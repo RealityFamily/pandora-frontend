@@ -147,7 +147,9 @@ class AddItemNew extends React.Component {
                     </Form.Item>
 
 
-                    <Form.Item name="modelAccessStrategy" label="Тип доступа к модели" required>
+                    <Form.Item name="modelAccessStrategy" label="Тип доступа к модели"
+                               rules={[{required: true, message: 'Выберите какой тип доступа будет назначен к модели'}]}
+                    >
                         <Select placeholder="Выберите тип доступа модели">
                             <Option value="Free">Бесплатно и доступно всем</Option>
                             <Option value="Premium">Доступно только по подписке</Option>
