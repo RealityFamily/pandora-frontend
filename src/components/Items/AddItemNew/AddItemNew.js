@@ -10,11 +10,12 @@ import {
     DatePicker,
     InputNumber,
     TreeSelect,
-    Switch, Upload,
+    Switch, Upload, Divider,
 } from 'antd';
 import CategoryDataService from "../../../service/api/CategoryDataService";
-import { DeploymentUnitOutlined} from '@ant-design/icons';
+import {DeploymentUnitOutlined} from '@ant-design/icons';
 import 'antd/dist/antd.css';
+import {Option} from "antd/es/mentions";
 
 class AddItemNew extends React.Component {
 
@@ -71,38 +72,12 @@ class AddItemNew extends React.Component {
         }
     }
 
-    normFile = (e) => {
-        console.log('Upload event:', e);
-
-        if (Array.isArray(e)) {
-            return e;
-        }
-
-        return e && e.fileList;
-    }
-
-
 
     onFinish = async values => {
-        let formData = new FormData();
-        // fields is the form content, append it to formData
-        Object.keys(values).map((item) => {
-            formData.append(item,values[item])
-        })
+        console.log(values)
 
-        console.log(formData);
     }
 
-    handleBeforeUploadFile = (file) => {
-        // Use beforeUpload will lose the ability to see the image immediately after selecting the image, so use the FileReader method to achieve the preview effect
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = function () {
-            this.setState({fileList: [{uid: file.uid, url: reader.result}],image:reader.result})
-        }.bind(this);
-        // Use beforeUpload to return false to stop uploading
-        return false
-    }
 
     render() {
         return <div className={styles.AddItemNew}>
@@ -116,9 +91,9 @@ class AddItemNew extends React.Component {
                 >
                     <Form.Item
                         style={{
-                        display: "flex",
-                        textAlign: "center"
-                    }}>
+                            display: "flex",
+                            textAlign: "center"
+                        }}>
                         <span
                             style={{
                                 color: "red"
@@ -144,57 +119,53 @@ class AddItemNew extends React.Component {
                         />
 
                     </Form.Item>
-                    <Form.Item label="Switch">
-                        <Switch/>
-                    </Form.Item>
-
-
-
-{/*                    <Form.Item label="3D модель" name="3dmodel">
-                        <Form.Item name="dragger" valuePropName="fileList" noStyle>
-                            <Upload.Dragger maxCount={1} accept={".zip"}>
-                                <p className="ant-upload-drag-icon">
-                                    <DeploymentUnitOutlined />
-                                </p>
-                                <p className="ant-upload-text">Нажмите на поле или перетащите архив с 3D Моделью в это поле</p>
-                                <p className="ant-upload-hint">Поддерживает загрузку только одного файла</p>
-                            </Upload.Dragger>
-                        </Form.Item>
-                    </Form.Item>*/}
-
-{/*
-                    <Form.Item label="Dragger">
-                        <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={this.normFile} noStyle
-                                   >
-                            <Upload.Dragger name="files"
-                                            beforeUpload = {file => {
-                                                return false;
-                                            }}>
-                                <p className="ant-upload-drag-icon">
-                                    <DeploymentUnitOutlined />
-                                </p>
-                                <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                                <p className="ant-upload-hint">Support for a single or bulk upload.</p>
-                            </Upload.Dragger>
-                        </Form.Item>
-                    </Form.Item>
-*/}
 
                     <Form.Item
-                        name="avatar"
-                        label="Upload profile picture"
-                        getValueFromEvent={({file}) => file.originFileObj}
+                        name="itemName"
+                        label="Название модели"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Пожалуйста введите имя модели',
+                            },
+                        ]}
                     >
-                        <Upload
-                            accept="image/png, image/jpeg"
-                            maxCount={1}
-                            listType="picture-card"
-                            beforeUpload={this.handleBeforeUploadFile}
-                        >
-                            >
-                        </Upload>
+                        <Input/>
                     </Form.Item>
 
+                    <Form.Item
+                        name="description"
+                        label="Описание модели"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Пожалуйста введите описание модели',
+                            },
+                        ]}
+                    >
+                        <Input/>
+                    </Form.Item>
+
+
+                    <Form.Item name="modelAccessStrategy" label="Тип доступа к модели" required>
+                        <Select placeholder="Выберите тип доступа модели">
+                            <Option value="Free">Бесплатно и доступно всем</Option>
+                            <Option value="Premium">Доступно только по подписке</Option>
+                        </Select>
+                    </Form.Item>
+
+
+                    <Form.Item name="photoLarge" label="Большое фото модели" required>
+                        <input type="file" name="photoLarge" accept="image/jpeg,image/jpg" required/>
+                    </Form.Item>
+
+                    <Form.Item name="photoSmall" label="Маленькое фото модели" required>
+                        <input type="file" name="photoSmall" accept="image/jpeg,image/jpg" required/>
+                    </Form.Item>
+
+                    <Form.Item name="3dmodel" label="Zip с 3д моделью" required>
+                        <input type="file" name="3dmodel" accept="application/zip" required/>
+                    </Form.Item>
 
 
                     <Form.Item
@@ -203,6 +174,8 @@ class AddItemNew extends React.Component {
                             sm: {span: 16, offset: 8},
                         }}
                     >
+
+
                         <Button type="primary" htmlType="submit"
                                 disabled={this.state.selectedSubtagErrors ? true : false}>Сохранить</Button>
                     </Form.Item>
