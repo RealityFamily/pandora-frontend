@@ -1,6 +1,6 @@
 import axios from "axios";
-import CLIENT_API_URL from "./ClientApiService";
-import ADMIN_API_URL from "./AdminApiService";
+import CLIENT_API_URL from "./Infrostracture/ClientApiService";
+import ADMIN_API_URL from "./Infrostracture/AdminApiService";
 
 class CategoryDataService {
 

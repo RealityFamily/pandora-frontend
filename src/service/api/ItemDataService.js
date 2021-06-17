@@ -1,5 +1,6 @@
 import axios from "axios";
-import CLIENT_API_URL from "./ClientApiService";
+import CLIENT_API_URL from "./Infrostracture/ClientApiService";
+import ADMIN_API_URL from "./Infrostracture/AdminApiService";
 
 
 class ItemDataService {
@@ -13,6 +14,10 @@ class ItemDataService {
         return axios.get(`${CLIENT_API_URL}/item/${itemId}/photo/small`).then( data =>{
             console.log(data);
         });
+    }
+
+    postItemToServer(form){
+        return axios.post(`${ADMIN_API_URL}/item/add`, form);
     }
 }
 
