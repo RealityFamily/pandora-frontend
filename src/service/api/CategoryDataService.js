@@ -10,7 +10,11 @@ class CategoryDataService {
     }
 
     async retrieveAllCategorysForSelect() {
-         return axios.get(`${ADMIN_API_URL}/categorys/all`)
+         return axios.get(`${ADMIN_API_URL}/categorys/all/selectable`)
+    }
+
+    retrieveCategoryDetailedInfo(categoryId){
+        return axios.get(`${ADMIN_API_URL}/category/${categoryId}`)
     }
 }
 

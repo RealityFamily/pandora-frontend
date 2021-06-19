@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import {Layout, Menu, PageHeader} from 'antd';
 import {AppstoreOutlined, TagsOutlined, UserOutlined,} from '@ant-design/icons';
 import {Link, Route} from "react-router-dom";
-import CategoryPage from "../CategoryPage/CategoryPage";
+import CategoryPage from "../Categorys/CategoryPage/CategoryPage";
 import UsersList from "../UsersList/UsersList";
 import ItemsList from "../Items/ItemsList/ItemsList";
 import AuthenticationService from "../../service/AuthenticationService";

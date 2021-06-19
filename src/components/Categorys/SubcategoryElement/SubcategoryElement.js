@@ -1,10 +1,24 @@
 import React from 'react';
-import styles from './CategoryElement.module.css';
+import styles from './SubcategoryElement.module.css';
 import {Button, Card, Col, Collapse, Popover, Row} from "antd";
+import SubCategoryDataService from "../../../service/api/SubCategoryDataService";
 
 
-class CategoryElement extends React.Component {
+class SubcategoryElement extends React.Component {
 
+    state = {
+        subcategory: {id: "60a562761281ea24953aa1c4", title: "Техника крупная", description: "подкатегория техника крупная", childCount: 0}
+    }
+
+    componentDidMount() {
+        SubCategoryDataService.retrieveSubcategoryDetailedInfo(this.props.id)
+            .then( resp => {
+                this.setState({
+                    subcategory: resp.data
+                });
+                //console.log(resp.data);
+            })
+    }
 
     render() {
         const {Panel} = Collapse;
@@ -17,8 +31,8 @@ class CategoryElement extends React.Component {
                     <Row justify="end" wrap={false}>
                         <Col flex="auto" style={{textAlign: "center", padding: "10px"}}>
                             <Collapse ghost={true} expandIconPosition="right">
-                                <Panel header={this.props.title} key="1">
-                                    <p>Тестовое описание категории</p>
+                                <Panel header={this.state.subcategory.title} key="1">
+                                    <p>{this.state.subcategory.description}</p>
                                     <Popover content={
 
                                         <>
@@ -35,7 +49,8 @@ class CategoryElement extends React.Component {
                             </Collapse>
                         </Col>
                         <Col flex="100px" style={{display: "flex", alignItems: "center"}}>
-                            <Button primary>Выбрать</Button>
+                            <Button onClick={()=>this.props.onSubcategorySelected(this.state.subcategory.id)}
+                                    type={this.props.selected ? "primary" : "default"}>Выбрать</Button>
                         </Col>
                     </Row>
 
@@ -46,4 +61,4 @@ class CategoryElement extends React.Component {
     }
 }
 
-export default CategoryElement;
+export default SubcategoryElement;
