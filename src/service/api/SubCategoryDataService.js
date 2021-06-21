@@ -14,6 +14,14 @@ class SubCategoryDataService {
         return axios.get(`${ADMIN_API_URL}/subcategory/${subcategoryId}`);
     }
 
+    async addSubcategoryToTheServer(title, description, categoryId) {
+        let subcategory = {title: title, description: description};
+        return axios.post(`${ADMIN_API_URL}/subcategory/add/to/${categoryId}`, subcategory)
+    }
+
+    async deleteSubcategoryFromServer(id) {
+        return  await axios.delete(`${ADMIN_API_URL}/subcategory/delete/${id}`)
+    }
 }
 
 export default new SubCategoryDataService()

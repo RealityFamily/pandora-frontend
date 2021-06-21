@@ -32,7 +32,8 @@ class SubcategoryElement extends React.Component {
                         <Col flex="auto" style={{textAlign: "center", padding: "10px"}}>
                             <Collapse ghost={true} expandIconPosition="right">
                                 <Panel header={this.state.subcategory.title} key="1">
-                                    <p>{this.state.subcategory.description}</p>
+                                    <p> Описание: {this.state.subcategory.description}</p>
+                                    <p> Колличество вложений: {this.state.subcategory.childCount}</p>
                                     <Popover content={
 
                                         <>
@@ -44,7 +45,8 @@ class SubcategoryElement extends React.Component {
                                     } title="Редактировать данные">
                                         <Button type="primary">Редактировать</Button>
                                     </Popover>
-                                    <Button danger>Удалить</Button>
+                                    <Button danger
+                                    onClick={(id)=> this.props.onSubcategoryDelete(this.state.subcategory.id)}>Удалить</Button>
                                 </Panel>
                             </Collapse>
                         </Col>

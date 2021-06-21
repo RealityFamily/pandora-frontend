@@ -25,7 +25,7 @@ class CategoryElement extends React.Component {
 
     render() {
         const {Panel} = Collapse;
-
+       // console.log(this.state.category);
         return (
             <div className={styles.CategoryElement}>
 
@@ -35,7 +35,8 @@ class CategoryElement extends React.Component {
                         <Col flex="auto" style={{textAlign: "center", padding: "10px"}}>
                             <Collapse ghost={true} expandIconPosition="right">
                                 <Panel header={this.state.category.title} key="1">
-                                    <p>{this.state.category.description}</p>
+                                    <p> Описание: {this.state.category.description}</p>
+                                    <p> Колличество вложений: {this.state.category.childCount}</p>
                                     <Popover content={
 
                                         <>
@@ -47,7 +48,7 @@ class CategoryElement extends React.Component {
                                     } title="Редактировать данные">
                                         <Button type="primary">Редактировать</Button>
                                     </Popover>
-                                    <Button danger>Удалить</Button>
+                                    <Button danger onClick={(e) => this.props.onCategoryDelete(this.state.category.id)}>Удалить</Button>
                                 </Panel>
                             </Collapse>
                         </Col>

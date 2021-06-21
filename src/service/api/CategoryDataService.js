@@ -16,6 +16,16 @@ class CategoryDataService {
     retrieveCategoryDetailedInfo(categoryId){
         return axios.get(`${ADMIN_API_URL}/category/${categoryId}`)
     }
+
+    async addCategoryToTheServer(title, description){
+        let category = {title: title, description: description};
+        return  await axios.post(`${ADMIN_API_URL}/category/add`,category)
+    }
+
+    async deleteCategoryFromServer(id){
+        return  await axios.delete(`${ADMIN_API_URL}/category/delete/${id}`)
+    }
 }
+
 
 export default new CategoryDataService()

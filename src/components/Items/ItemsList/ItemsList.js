@@ -125,7 +125,7 @@ class ItemsList extends React.Component {
     }
 
     render() {
-        console.log(this.state);
+        //console.log(this.state);
         return <div className={styles.ItemsList}>
 
             {this.state.networkError ?
@@ -200,13 +200,7 @@ class ItemsList extends React.Component {
                                     dataSource={tag.itemCardShortDTOS}
                                     renderItem={ item =>
                                         <List.Item key={item.id}>
-                                            <ItemCard
-                                                name= {item.id}
-                                                description="testDescriprion"
-                                                imageUrl={"https://manufaktura-yuyta-sochi.ru/wp-content/uploads/dionis-ugol-1.jpg"}
-                                                authorNickname={"Some Author"}
-                                                modelAccessStrategy={item.modelAccessStrategy}
-                                            />
+                                            <ItemCard id={item.id} accessStrategy={item.modelAccessStrategy}/>
 
                                         </List.Item>
                                     }

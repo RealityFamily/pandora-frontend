@@ -10,14 +10,24 @@ class ItemDataService {
         return axios.get(`${CLIENT_API_URL}/item/bysubgroup/${subgroupId}`);
     }
 
-    getSmallImageByItemId(itemId){
-        return axios.get(`${CLIENT_API_URL}/item/${itemId}/photo/small`).then( data =>{
-            console.log(data);
-        });
+    getDetailedInfoItem(id) {
+        return axios.get(`${CLIENT_API_URL}/item/${id}`);
     }
 
-    postItemToServer(form){
+    getSmallImageByItemId(itemId) {
+        return axios.get(`${CLIENT_API_URL}/item/${itemId}/photo/small`, {responseType: 'blob'});
+    }
+
+    postItemToServer(form) {
         return axios.post(`${ADMIN_API_URL}/item/add`, form);
+    }
+
+    updateItemInfo(id, name, description) {
+        let item = {
+            name: name,
+            description: description
+        }
+        return axios.put(`${ADMIN_API_URL}/item/update/${id}`, item)
     }
 }
 
