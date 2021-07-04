@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
 import {Redirect, Route} from 'react-router-dom'
-import {
-    USER_NAME_SESSION_ATTRIBUTE_NAME,
-    USER_TOKEN_SESSION_ATTRIBUTE_TOKEN
-} from '../service/AuthenticationService';
+import {USER_NAME_SESSION_ATTRIBUTE_NAME, USER_TOKEN_SESSION_ATTRIBUTE_TOKEN} from '../service/AuthenticationService';
 import axios from "axios";
 
 class AuthenticatedRoute extends Component {

@@ -1,19 +1,9 @@
 import React from 'react';
 
 import styles from './AddItemNew.module.css';
-import {
-    Form,
-    Input,
-    Button,
-    Select,
-    Cascader,
-    DatePicker,
-    InputNumber,
-    TreeSelect,
-    Switch, Upload, Divider, Tooltip, Result,
-} from 'antd';
+import {Button, Cascader, Form, Input, Result, Select, Tooltip,} from 'antd';
 import CategoryDataService from "../../../service/api/CategoryDataService";
-import {DeploymentUnitOutlined, UserOutlined, InfoCircleOutlined, SearchOutlined} from '@ant-design/icons';
+import {InfoCircleOutlined, SearchOutlined, UserOutlined} from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import {Option} from "antd/es/mentions";
 import UserDataService from "../../../service/api/UserDataService";

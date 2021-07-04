@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Card, Col, Collapse, Divider, Form, Layout, Popover, Row, message} from "antd";
+import {Button, Card, Col, Collapse, Divider, Form, Layout, message, Row} from "antd";
 import Title from "antd/es/typography/Title";
 import CategoryElement from "../CategoryElement/CategoryElement";
 import CategoryDataService from "../../../service/api/CategoryDataService";

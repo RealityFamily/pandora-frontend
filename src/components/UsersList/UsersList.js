@@ -1,9 +1,8 @@
 import React from 'react';
 import styles from './UsersList.module.css';
-import {Button, Layout, Table} from "antd";
+import {Button, Input, Layout, Table} from "antd";
 import {Header} from "antd/es/layout/layout";
 import {PlusOutlined} from "@ant-design/icons";
-import {Input} from 'antd';
 import {Link} from "react-router-dom";
 
 const dataSource = [
