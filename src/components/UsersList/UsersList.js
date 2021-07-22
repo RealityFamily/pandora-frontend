@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './UsersList.module.css';
-import {Button, Checkbox, Input, Layout, Table, Tag} from "antd";
+import {Button, Checkbox, Input, Layout, Table, Tag, message} from "antd";
 import {Header} from "antd/es/layout/layout";
 import {PlusOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
@@ -139,9 +139,11 @@ class UsersList extends React.Component {
                 this.setState({
                     userList: toSave
                 })
+                message.success(`Успешно подтвержден аккаунт с id: ${id}`);
             })
             .catch(e=> {
-                console.log(e);
+                message.error(`Возникла непредвиденная ошибка при подтверждении аккаунта с id: ${id}`);
+                console.error(e);
             });
     }
 
