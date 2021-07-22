@@ -67,7 +67,7 @@ class ItemsList extends React.Component {
         let categorySelected = categorySelectedAll[0];
         await this.setState({selectedCategory: categorySelected});
         await this.getSubcats(categorySelected);
-        await this.handleSubcatsChange(this.state.selectedSubcategory.id);
+        await this.handleSubcatsChange(this.state.selectedSubcategory?.id);
     }
 
     async getSubcats(categorySelected) {
