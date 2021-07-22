@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './UsersList.module.css';
-import {Button, Input, Layout, Table, Tag} from "antd";
+import {Button, Checkbox, Input, Layout, Table, Tag} from "antd";
 import {Header} from "antd/es/layout/layout";
 import {PlusOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
@@ -32,47 +32,6 @@ const dataSource = [
 
 ];
 
-const columns = [
-    {
-        title: 'Идентификатор',
-        dataIndex: 'id',
-        key: 'id',
-    },
-    {
-        title: 'Почта',
-        dataIndex: 'mail',
-        key: 'mail',
-    },
-    {
-        title: 'Ник',
-        dataIndex: 'nickname',
-        key: 'nickname',
-    },
-    {
-        title: 'Роль',
-        dataIndex: 'role',
-        key: 'role',
-        render: tags => (
-            <>
-                {tags?.map(tag => {
-                    let color = 'geekblue';
-                    if (tag === 'USER') {
-                        color = 'green';
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </>
-        )
-    },
-    {
-        title: 'Действия',
-        key: 'operation',
-        render: (_, record) => <Link to={`/admin/user/${record?.id}`}>Редактировать</Link>},
-];
 
 class UsersList extends React.Component {
 
@@ -80,21 +39,110 @@ class UsersList extends React.Component {
         userList: []
     }
 
+
+    columns = [
+        {
+            title: 'Идентификатор',
+            dataIndex: 'id',
+            key: 'id',
+        },
+        {
+            title: 'Почта',
+            dataIndex: 'mail',
+            key: 'mail',
+        },
+        {
+            title: 'Ник',
+            dataIndex: 'nickname',
+            key: 'nickname',
+        },
+        {
+            title: 'Подтвержден',
+            dataIndex: 'verified',
+            key: 'verified',
+            render: (verified, record) => (
+
+                verified?
+                    <>
+                        <Checkbox defaultChecked={verified} disabled></Checkbox>
+                    </>
+                    :
+                    <>
+                        <>
+                            <Checkbox defaultChecked={verified} onChange={e => this.onVerifyAccountFromAdmin(e, record.key)}></Checkbox>
+                        </>
+                    </>
+            )
+        },
+        {
+            title: 'Роль',
+            dataIndex: 'role',
+            key: 'role',
+            render: (tags, record) => (
+                <>
+                    {tags?.map(tag => {
+                        let color = 'geekblue';
+                        if (tag === 'USER') {
+                            color = 'green';
+                        }
+                        return (
+                            <Tag color={color} key={tag}>
+                                {tag.toUpperCase()}
+                            </Tag>
+                        );
+                    })}
+                </>
+            )
+        },
+        {
+            title: 'Действия',
+            key: 'operation',
+            render: (_, record) => <Link to={`/admin/user/${record?.id}`}>Редактировать</Link>},
+    ];
+
+
     componentDidMount() {
         UserDataService.retrieveAllUsers().then(resp =>{
             console.log(resp.data);
             this.setState({
                 userList: resp.data?.map( user => {
-                    let newUser= {};
-                    newUser.key = user.id;
-                    newUser.id = user.id;
-                    newUser.mail = user.mail;
-                    newUser.nickname = user.nickname;
-                    newUser.role = user.role;
-                    return newUser;
+                    return this.mapUserToUserTable(user);
                 })
             })
         })
+    }
+
+    mapUserToUserTable(user) {
+        let newUser = {};
+        newUser.key = user.id;
+        newUser.id = user.id;
+        newUser.mail = user.mail;
+        newUser.nickname = user.nickname;
+        newUser.role = user.role;
+        newUser.verified = user.enabled;
+        console.log(newUser);
+        return newUser;
+    }
+
+    onVerifyAccountFromAdmin = (e, id) => {
+        console.log(e.target.checked);
+        console.log(id);
+        UserDataService.updateUserVerificationStatus(e.target.checked, id)
+            .then( resp =>{
+                 let userTableEntity = this.mapUserToUserTable(resp.data);
+                 let stateUsers = [...this.state.userList];
+                 let toSave = stateUsers.map(user => {
+                     if(user.id === userTableEntity.id){
+                         return userTableEntity;
+                     } else return user;
+                 })
+                this.setState({
+                    userList: toSave
+                })
+            })
+            .catch(e=> {
+                console.log(e);
+            });
     }
 
     render() {
@@ -115,11 +163,13 @@ class UsersList extends React.Component {
                     </Button>
                 </Header>
 
-                <Table dataSource={this.state.userList} columns={columns}/>
+                <Table dataSource={this.state.userList} columns={this.columns}/>
 
             </Layout>
         </div>
     }
+
+
 }
 
 UsersList.propTypes = {};

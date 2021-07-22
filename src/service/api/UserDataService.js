@@ -14,6 +14,9 @@ class UserDataService {
     }
 
 
+    updateUserVerificationStatus(enabled, id) {
+        return axios.post(`${ADMIN_API_URL}/users/${id}/setEnabled?enabled=${enabled}`)
+    }
 }
 
 export default new UserDataService()
