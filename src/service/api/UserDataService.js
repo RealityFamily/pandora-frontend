@@ -9,6 +9,10 @@ class UserDataService {
         return axios.get(`${ADMIN_API_URL}/users/search/${nicknameOrMail}`);
     }
 
+    retrieveAllUsers(){
+        return axios.get(`${ADMIN_API_URL}/users`);
+    }
+
 
 }
 

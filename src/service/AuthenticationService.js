@@ -54,6 +54,16 @@ class AuthenticationService {
             }
         )
     }
+
+    checkRole(role) {
+        if( typeof role === "string"){
+            if(role.includes("ROLE_ADMIN")){
+                return;
+            }
+        }
+        throw "There is no valid ROLE to use pandora admin service";
+
+    }
 }
 
 export default new AuthenticationService()
