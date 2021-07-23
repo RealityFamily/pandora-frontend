@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8082'
+import SERVER_BASE_URL from "./api/Infrostracture/ServerAdressApiService";
 
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 export  const  USER_TOKEN_SESSION_ATTRIBUTE_TOKEN = "authenticatedToken";
@@ -10,7 +10,7 @@ class AuthenticationService {
 
     executeJwtAuthenticationService(username, password) {
         console.log(username);
-        return axios.post(`${API_URL}/authenticate`, {
+        return axios.post(`${SERVER_BASE_URL}/authenticate`, {
             username,
             password
         })
